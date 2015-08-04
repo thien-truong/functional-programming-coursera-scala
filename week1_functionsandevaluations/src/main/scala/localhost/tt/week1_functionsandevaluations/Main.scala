@@ -11,7 +11,7 @@ object Main {
   }
 
   /**
-   * Implement x && y without using &&
+   * Implement (x && y) without using &&
    * In the case that x is false, y should be passed as an expression
    * instead of as a value - in case y is non-terminating
    * short circuit evaluation.
@@ -20,7 +20,12 @@ object Main {
     if (x) y else false
   }
 
-  def or(x: Boolean, y: Boolean): Boolean = ???
+  /**
+   * Implement (x || y) without using ||
+  */
+  def or(x: Boolean, y: => Boolean): Boolean = {
+    if (x) true else y
+  }
 
   def pascal(column: Int, row: Int): Int = ???
 
