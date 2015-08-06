@@ -1,6 +1,7 @@
 package localhost.tt.week1_functionsandevaluations
 
 object Main {
+
   def main (args: Array[String]) {
     println("Pascal's Triangle")
     for (row <- 0 to 10) {
@@ -68,7 +69,35 @@ object Main {
     else pascalRecursion(column - 1, row - 1) + pascalRecursion(column, row - 1)
   }
 
-  def balance(chars: List[Char]): Boolean = ???
+  def detectBalancedParentheses(chars: List[Char]): Boolean = {
+    val parenthesesMatcherTracker = new StringBuilder
+
+    def loop(chars: List[Char], numberOfOpeningParentheses: Int, numberOfClosingParentheses: Int): Boolean = {
+      var currentNumberOfOpeningParentheses: Int = numberOfOpeningParentheses
+      var currentNumberOfClosingParentheses: Int = numberOfClosingParentheses
+
+      if (chars.head == '(') {
+        currentNumberOfOpeningParentheses += 1
+        parenthesesMatcherTracker.append('(')
+      }
+
+      if (chars.head == ')') {
+        currentNumberOfClosingParentheses += 1
+        if (parenthesesMatcherTracker.isEmpty) return false
+        else parenthesesMatcherTracker.deleteCharAt(parenthesesMatcherTracker.length - 1)
+      }
+
+      if (chars.tail.isEmpty) {
+        if (currentNumberOfClosingParentheses == currentNumberOfClosingParentheses && parenthesesMatcherTracker.isEmpty)
+          true else false
+      } else {
+        loop(chars.tail, currentNumberOfOpeningParentheses, currentNumberOfClosingParentheses)
+      }
+
+    }
+
+    loop(chars, 0, 0)
+  }
 
   def countChange(money: Int, coins: List[Int]): Int = ???
 
