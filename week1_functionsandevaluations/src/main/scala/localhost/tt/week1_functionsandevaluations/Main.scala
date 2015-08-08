@@ -17,6 +17,7 @@ object Main {
    * instead of as a value - in case y is non-terminating.
    * Illustrate: short circuit evaluation.
    */
+
   def and(x: Boolean, y: => Boolean): Boolean = {
     if (x) y else false
   }
@@ -24,6 +25,7 @@ object Main {
   /**
    * Implement (x || y) without using ||
   */
+
   def or(x: Boolean, y: => Boolean): Boolean = {
     if (x) true else y
   }
@@ -64,6 +66,7 @@ object Main {
    * = 1 + 1 + 1 + 1 + 1 + 1
    * = 6
    */
+
   def pascalRecursion(column: Int, row: Int): Int = {
     if (column == 0 || column == row) 1
     else pascalRecursion(column - 1, row - 1) + pascalRecursion(column, row - 1)
@@ -99,6 +102,23 @@ object Main {
     loop(chars, 0, 0)
   }
 
-  def countChange(money: Int, coins: List[Int]): Int = ???
+  /**
+   * Dynamic Programming
+   * Integer Partition
+   */
+
+  def countNumberOfWaysToMakeChange(money: Int, coinDenominations: List[Int]): Int = {
+
+    def count(money: Int, coinDenominations: List[Int]): Int = {
+      if (money == 0) return 1
+      if (money < 0 || coinDenominations.isEmpty) return 0
+
+      count(money, coinDenominations.tail) +
+      count(money - coinDenominations.head, coinDenominations)
+    }
+
+    if (money == 0) 0
+    else count(money, coinDenominations)
+  }
 
 }
